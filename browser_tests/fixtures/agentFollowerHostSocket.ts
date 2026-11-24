@@ -27,8 +27,6 @@ import type {
   ParsedWireBatch,
   WireOpEnvelope
 } from '@e2e/fixtures/agentWireFrame'
-import { isPlainObject } from 'es-toolkit'
-
 import { isRecord } from '@e2e/fixtures/utils/typeGuards'
 
 const SUBSCRIBE_TIMEOUT = 15_000
