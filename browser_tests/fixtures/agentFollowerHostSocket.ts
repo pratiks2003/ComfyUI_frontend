@@ -29,6 +29,8 @@ import type {
 } from '@e2e/fixtures/agentWireFrame'
 import { isPlainObject } from 'es-toolkit'
 
+import { isRecord } from '@e2e/fixtures/utils/typeGuards'
+
 const SUBSCRIBE_TIMEOUT = 15_000
 /** The sid the fake ComfyUI reports on its first `status` frame. */
 export const COMFY_SOCKET_SID = '7d1f2e3a-4b5c-4d6e-8f90-1a2b3c4d5e6f'
@@ -89,10 +91,10 @@ function docFrameEnvelope(
   raw: string | Buffer
 ): { type: string; data: Record<string, unknown> } | null {
   const frame: unknown = JSON.parse(raw.toString())
-  if (!isPlainObject(frame)) return null
+  if (!isRecord(frame)) return null
   const { type, data } = frame
   if (typeof type !== 'string' || !type.startsWith('doc_')) return null
-  if (!isPlainObject(data)) return null
+  if (!isRecord(data)) return null
   return { type, data }
 }
 
