@@ -1,32 +1,30 @@
 import { describe, expect, it } from 'vitest'
+
 import { isRecord } from './typeGuards'
 
 describe('isRecord', () => {
-  it('returns true for a plain object', () => {
+  it('returns true for plain objects', () => {
+    expect(isRecord({})).toBe(true)
     expect(isRecord({ a: 1 })).toBe(true)
   })
 
-  it('returns true for an empty object', () => {
-    expect(isRecord({})).toBe(true)
+  it('returns true for objects produced by JSON.parse', () => {
+    expect(isRecord(JSON.parse('{"x":1}'))).toBe(true)
   })
 
   it('returns false for null', () => {
     expect(isRecord(null)).toBe(false)
   })
 
-  it('returns false for an array', () => {
+  it('returns false for arrays', () => {
     expect(isRecord([])).toBe(false)
+    expect(isRecord([1, 2])).toBe(false)
   })
 
-  it('returns false for a string', () => {
-    expect(isRecord('hello')).toBe(false)
-  })
-
-  it('returns false for a number', () => {
+  it('returns false for primitives', () => {
+    expect(isRecord('string')).toBe(false)
     expect(isRecord(42)).toBe(false)
-  })
-
-  it('returns false for undefined', () => {
+    expect(isRecord(true)).toBe(false)
     expect(isRecord(undefined)).toBe(false)
   })
 })
